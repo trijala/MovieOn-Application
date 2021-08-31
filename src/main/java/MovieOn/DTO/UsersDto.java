@@ -1,2 +1,5 @@
-package MovieOn.DTO;public class UsersDto {
+package MovieOn.DTO;
+
+public class UsersDto {
+
 }

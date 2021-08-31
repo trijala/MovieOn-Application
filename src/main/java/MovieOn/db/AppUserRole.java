@@ -1,2 +1,6 @@
-package MovieOn.db;public enum AppUserRole {
+package MovieOn.db;
+
+public enum AppUserRole {
+    USER,
+    ADMIN
 }

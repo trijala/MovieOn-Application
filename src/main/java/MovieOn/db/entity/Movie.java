@@ -1,7 +1,8 @@
-package MovieOn;
+package MovieOn.db.entity;
 
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "Movie")
+@Table(name = "movie")
 
 
 public class Movie {
@@ -18,23 +19,21 @@ public class Movie {
     @GeneratedValue
     private Long id;
     private String title;
-    private String year;
+    private String year_created;
     private String poster;
     private String description;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "active")
+    private Boolean active;
+
 
 
     public Movie(String Title, String Year, String Poster, String Description){
         this.title = Title;
-        this.year = Year;
+        this.year_created = Year;
         this.poster = Poster;
         this.description = Description;
     }
-
-    public Movie() {
-
-    }
-
-
 
     public Long getId() {
         return id;
@@ -52,12 +51,12 @@ public class Movie {
         this.title = title;
     }
 
-    public String getYear() {
-        return year;
+    public String getYear_created() {
+        return year_created;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setYear_created(String year_created) {
+        this.year_created = year_created;
     }
 
     public String getPoster() {
@@ -75,6 +74,18 @@ public class Movie {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Movie() {
+
+    }
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
 
 
 }

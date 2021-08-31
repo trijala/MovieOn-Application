@@ -1,0 +1,14 @@
+{
+  "name": "Movie-On",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^7.0.1"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "maildev": "^1.1.0"
+  }
+}

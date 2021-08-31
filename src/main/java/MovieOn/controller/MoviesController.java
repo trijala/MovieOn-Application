@@ -1,7 +1,11 @@
-package MovieOn;
+package MovieOn.controller;
 
+import MovieOn.DTO.MovieDto;
 import MovieOn.db.entity.Movie;
-import MovieOn.db.repository.MovieRepository;
+import MovieOn.db.services.MovieService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,45 +13,39 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/v1/movies")
 public class MoviesController {
-    private final MovieRepository movieRepository;
-    
-    public MoviesController(MovieRepository movieRepository){
-        this.movieRepository = movieRepository;
-    }
+
+
+
+    @Autowired
+    private MovieService movieService;
 
     @GetMapping
-    public List<Movie> getMovies(){
-        return movieRepository.findAll();
+    public List<MovieDto> getMovies()	{
+        return movieService.getMovies();
     }
 
-    @GetMapping("/{id}")
-    public Movie getMovies(@PathVariable Long id) {
-        return movieRepository.findById(id).orElseThrow(RuntimeException::new);
+    @GetMapping("/api/v1/movies/{id}")
+    public MovieDto getMovieById(@PathVariable Long id) {
+        return movieService.getMovieById(id);
     }
 
     @PostMapping
-    public ResponseEntity addMovie(@RequestBody Movie movie) throws URISyntaxException {
-       Movie savedClient = movieRepository.save(movie);
-        return ResponseEntity.created(new URI("/movies/" + savedClient.getId())).body(savedClient);
+    public MovieDto addMovie(@RequestBody Movie movie) throws URISyntaxException {
+      return movieService.addMovie(movie);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity updateClient(@PathVariable Long id, @RequestBody Movie movie) {
-        Movie currentMovie = movieRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentMovie.setTitle(movie.getTitle());
-        currentMovie.setYear(movie.getYear());
-        currentMovie = movieRepository.save(movie);
-
-        return ResponseEntity.ok(currentMovie);
+    @PutMapping("/api/v1/movies/{id}")
+    public MovieDto updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
+      return movieService.updateMovie(id,movie);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteClient(@PathVariable Long id) {
-        movieRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/api/v1/movies")
+    public void deleteMovie(@PathVariable Long id) {
+        movieService.deleteMovie(id);
     }
 
 }

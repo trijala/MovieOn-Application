@@ -1,39 +1,38 @@
-package MovieOn;
+package MovieOn.controller;
 
-import MovieOn.db.entity.Movie;
-import MovieOn.db.repository.FavoritesRepository;
-import org.springframework.http.ResponseEntity;
+import MovieOn.DTO.FavoriteDto;
+import MovieOn.DTO.MovieDto;
+import MovieOn.db.entity.Favorites;
+import MovieOn.db.services.FavoritesService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+
 import java.net.URISyntaxException;
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/favorites")
-
 public class FavoritesController {
 
-    private final FavoritesRepository favoritesRepository;
-
-    public FavoritesController(FavoritesRepository favoritesRepository){
-        this.favoritesRepository = favoritesRepository;
-
-    }
+    @Autowired
+    private FavoritesService favoritesService;
 
     @GetMapping
-    public List<Movie> getFavorites() {
-        return favoritesRepository.findAll();
-    }
-
-    @GetMapping("/{movie_id}")
-    public Movie getFavorites(@PathVariable Long movie_id) {
-        return favoritesRepository.findById(movie_id).orElseThrow(RuntimeException::new);
+    public List<MovieDto> getFavorites(@RequestParam Long userId) {
+       return favoritesService.findByUser(userId);
     }
 
     @PostMapping
-    public ResponseEntity addFavorite(@RequestBody Movie movie) throws URISyntaxException {
-        Movie savedClient = favoritesRepository.save(movie);
-        return ResponseEntity.created(new URI("/favorites/" + savedClient.getId())).body(savedClient);
+    @ResponseBody
+    public FavoriteDto addFavorite(@RequestBody Favorites fav){
+             return favoritesService.addFavorite(fav);
+    }
+
+    @DeleteMapping
+    @ResponseBody
+    public void deleteFavorite(@RequestParam Long movieId){
+        favoritesService.deleteFavorite(movieId);
     }
 }

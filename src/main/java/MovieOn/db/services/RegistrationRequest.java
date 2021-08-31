@@ -1,19 +1,31 @@
-package MovieOn.db.requests;
+package MovieOn.db.services;
 
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter
 @Builder
 
-@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class RegistrationRequest {
-    private final String username;
-    private final String email;
-    private final String password;
+    @JsonProperty("username")
+    private  String username;
+    @JsonProperty("email")
+    private  String email;
+    @JsonProperty("password")
+    private  String password;
 
+
+
+    public RegistrationRequest(String username,String email, String password){
+        this.email = email;
+        this.password = password;
+        this.username = username;
+    }
+
+    public RegistrationRequest(){
+
+    }
 }
 

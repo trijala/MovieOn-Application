@@ -1,2 +1,5 @@
-package MovieOn.db.requests;public class EmailSender {
+package MovieOn.db.requests;
+
+public interface EmailSender {
+    void send(String to, String email);
 }

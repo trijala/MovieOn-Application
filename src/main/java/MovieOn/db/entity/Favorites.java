@@ -1,32 +1,52 @@
-package MovieOn;
-
-
+package MovieOn.db.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Favorites")
+@Table(name = "favorites")
 
 public class Favorites {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "movie_id")
-    Long movie_Id;
+    @GeneratedValue
+    private Long favId;
+    private Long userId;
+    private Long movieId;
+
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(Long movieId) {
+        this.movieId = movieId;
+    }
 
     @OneToOne
-    @PrimaryKeyJoinColumn(name = "movie_id")
+    @JoinColumn(updatable=false,insertable=false,name = "movieId",referencedColumnName = "id")
     Movie movie;
+
+    @OneToOne
+    @JoinColumn(updatable=false,insertable=false,name = "userId",referencedColumnName = "userId")
+    Users user;
 
     @Column(name = "isTrue")
     Boolean isFavorite;
 
-    public Long getMovie_Id() {
-        return movie_Id;
+    public Long getFavId() {
+        return favId;
     }
 
-    public void setMovie_Id(Long movie_Id) {
-        this.movie_Id = movie_Id;
+    public void setFavId(Long favId) {
+        this.favId = favId;
     }
 
     public Movie getMovie() {
@@ -37,11 +57,19 @@ public class Favorites {
         this.movie = movie;
     }
 
-    public Boolean getFavorite() {
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public Boolean getIsFavorite() {
         return isFavorite;
     }
 
-    public void setFavorite(Boolean favorite) {
+    public void setIsFavorite(Boolean favorite) {
         isFavorite = favorite;
     }
 }

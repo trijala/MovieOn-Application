@@ -1,4 +1,4 @@
-package MovieOn.db.token;
+package MovieOn.db.entity;
 
 import MovieOn.db.entity.Users;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class ConfirmationToken {
     @Column(nullable = false)
     private LocalDateTime expiresAt;
 
-
+    private LocalDateTime confirmedAt;
     @ManyToOne
     @JoinColumn(
             nullable = false,
@@ -49,5 +49,51 @@ public class ConfirmationToken {
         this.user = user;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getExpiresAt() {
+        return expiresAt;
+    }
+
+    public LocalDateTime getConfirmedAt() {
+        return confirmedAt;
+    }
+
+    public void setConfirmedAt(LocalDateTime confirmedAt) {
+        this.confirmedAt = confirmedAt;
+    }
+
+    public void setExpiresAt(LocalDateTime expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 }
