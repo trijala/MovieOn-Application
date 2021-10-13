@@ -1,0 +1,60 @@
+.MovieList {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+.Movie_item {
+    width: 325px;
+    margin: 1rem;
+    position: relative;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+}
+
+.item_img {
+    height: 430px;
+    position: relative;
+    background-color: black;
+    overflow-y: hidden;
+}
+
+.item_img > img {
+    width: 100%;
+    transition: all ease-in 0.2s;
+}
+.add_fav{
+    top:  0;
+    opacity: 0;
+    height: 100%;
+    padding: 0.5rem;
+    position: absolute;
+    color: white;
+    background-color: #333533;
+    transition: all ease-in 0.3s;
+}
+
+.Movie_item:hover .item_img > img {
+    opacity: 0.3;
+    transform: scale(1.1);
+}
+
+.Movie_item:hover. add_fav {
+    opacity: 1;
+}
+
+
+.Movie_name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: cadetblue;
+    color: #242423;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 1rem;
+}
